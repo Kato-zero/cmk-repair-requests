@@ -202,9 +202,10 @@
 
         <div class="form-h">Schedule</div>
         <div class="group">
-          <label class="frow"><span class="flabel">Preferred</span><input type="datetime-local" name="preferred"></label>
+          <label class="frow"><span class="flabel">Date</span><input type="date" name="preferred" id="prefDate" required></label>
         </div>
 
+        <div class="form-f">Choose the day you'd like us to look at it. We'll confirm the time by phone. Transport costs, if any, are agreed when we call.</div>
         <button class="cta" type="submit" id="sendBtn">Send request</button>
       </form>
     </section>
@@ -356,7 +357,7 @@ form.addEventListener('submit', async e => {
   const phone = (fd.get('phone') || '').trim();
   const location = (fd.get('location') || '').trim();
   const description = (fd.get('description') || '').trim();
-  if (!name || !phone || !location || !description) {
+  if (!name || !phone || !location || !description || !fd.get('preferred')) {
     alertOnly('Missing details', 'Please fill in your name, phone, location and a description of the problem.');
     return;
   }
@@ -451,6 +452,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal.o
 
 /* ---------- Boot ---------- */
 $$('[data-ic]').forEach(el => { el.innerHTML = I[el.dataset.ic]; });
+$('#prefDate').min = new Date().toLocaleDateString('en-CA');
 renderMine();
 </script>
 </body>
